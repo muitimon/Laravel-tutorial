@@ -3,7 +3,8 @@ web:
     ports:
         - 80:80
     volumes:
-        - ./:/var/www
+        - ./scripts:/var/www
+    command: php -S 0.0.0.0:80
     links:
         - db
     environment:
