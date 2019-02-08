@@ -19,3 +19,6 @@ db:
         MYSQL_DATABASE: dbname
         MYSQL_USER: username
         MYSQL_PASSWORD: p455w0rd
+        MYSQL_ROOT_PASSWORD: p455w0rd
+        MYSQL_ALLOW_EMPTY_PASSWORD: p455w0rd
+        MYSQL_RANDOM_ROOT_PASSWORD: p455w0rd
