@@ -24,8 +24,15 @@ Route::post('/submit', function (Request $request) {
     return redirect('/');
 });
 
-Route::get('/', function () {
+Route::get('/submit', function () {
     return view('submit');
+});
+
+Route::get('/', function () {
+
+    $links = \App\Link::all();
+
+    return view('welcome', ['links' => $links]);
 });
 
 Auth::routes();
