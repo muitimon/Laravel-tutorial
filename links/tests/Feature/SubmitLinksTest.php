@@ -65,5 +65,38 @@ class SubmitLinksTest extends TestCase
           $this->fail("The URL $case passed validation when it should have failed.");
       }
   }
+  
+  /** @test */
+  function max_length_fails_when_too_long()
+  {
+      $this->withoutExceptionHandling();
 
+      $title = str_repeat('a', 256);
+      $description = str_repeat('a', 256);
+      $url = 'http://';
+      $url .= str_repeat('a', 256 - strlen($url));
+
+      try {
+          $this->post('/submit', compact('title', 'url', 'description'));
+      } catch(ValidationException $e) {
+          $this->assertEquals(
+              'The title may not be greater than 255 characters.',
+              $e->validator->errors()->first('title')
+          );
+
+          $this->assertEquals(
+              'The url may not be greater than 255 characters.',
+              $e->validator->errors()->first('url')
+          );
+
+          $this->assertEquals(
+              'The description may not be greater than 255 characters.',
+              $e->validator->errors()->first('description')
+          );
+
+          return;
+      }
+
+      $this->fail('Max length should trigger a ValidationException');
+  }
 }
